@@ -1,46 +1,147 @@
-# insurance-risk-analytics
-## Data Version Control (DVC)
+# Insurance Risk Analytics
 
-This project uses DVC to manage large insurance datasets and ensure reproducibility.
+## Project Overview
 
-### Initialize DVC
+This project is an end-to-end insurance risk analytics pipeline focused on:
+- Data version control (DVC)
+- Exploratory Data Analysis (EDA)
+- Hypothesis testing
+- Predictive modeling for risk-based pricing
 
-```bash
-dvc init
-Add Dataset
-dvc add data/MachineLearningRating_v3.txt
-Push Data to Local Remote Storage
-dvc push
-Pull Dataset
-dvc pull
-
-The actual dataset is not stored directly in GitHub due to GitHub file size limitations. Instead, DVC tracks the dataset version while storing the large file in local remote storage.
-
+The goal is to build a reproducible and auditable machine learning workflow for insurance claim prediction and pricing optimization.
 
 ---
 
-#  SECOND DATA VERSION
-Task 2 asks for TWO versions:
-- raw
-- cleaned
+## Data Version Control (DVC)
 
-So after cleaning:
+This project uses Data Version Control (DVC) to ensure reproducibility and proper tracking of large datasets.
 
-Save cleaned dataset:
+DVC allows us to version datasets without storing large files directly in GitHub.
 
-```python id="x5v2nc"
-df.to_csv("data/cleaned_insurance_data.csv", index=False)
+---
 
-Then track it:
+##  Data Pipeline
 
+### 1. Clone the Repository
+```bash
+git clone <your-repo-url>
+cd insurance-risk-analytics
+````
+
+---
+
+### 2. Create Virtual Environment 
+
+```bash
+python -m venv venv
+venv\Scripts\activate   
+```
+
+---
+
+### 3. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+### 4. Initialize DVC (if not already initialized)
+
+```bash
+dvc init
+```
+
+---
+
+### 5. Pull Data from DVC Storage
+
+This restores the dataset from local remote storage:
+
+```bash
+dvc pull
+```
+
+---
+
+## Dataset Versions
+
+This project maintains two dataset versions:
+
+### Raw Dataset
+
+```text
+data/MachineLearningRating_v3.txt
+```
+
+Tracked using:
+
+```bash
+dvc add data/MachineLearningRating_v3.txt
+```
+
+---
+
+### Cleaned Dataset
+
+After preprocessing and handling missing values:
+
+```text
+data/cleaned_insurance_data.csv
+```
+
+Tracked using:
+
+```bash
 dvc add data/cleaned_insurance_data.csv
+```
 
-Commit:
+---
 
-git add .
+## Push Data to DVC Storage
 
-git commit -m "Add cleaned dataset version"
+To store dataset versions in local remote storage:
 
-Push:
-
+```bash
 dvc push
+```
+
+---
+
+## Why DVC is Used
+
+* Enables reproducibility of experiments
+* Tracks multiple dataset versions (raw and cleaned)
+* Prevents large files from being pushed to GitHub
+* Supports audit-friendly workflows required in insurance analytics
+
+---
+
+## Project Structure
+
+```
+insurance-risk-analytics/
+│
+├── data/                         # DVC-tracked datasets
+├── notebooks/                    # EDA, modeling, hypothesis testing
+├── src/                          # Reusable Python modules
+├── .dvc/                         # DVC configuration
+├── .github/workflows/ci.yml     # CI pipeline
+├── dvc.yaml                      # Pipeline definition
+├── requirements.txt
+└── README.md
+```
+
+---
+
+## Notes
+
+* The dataset is NOT stored in GitHub due to size limitations.
+* All data is managed using DVC for reproducibility.
+* This ensures compliance with real-world insurance data engineering practices.
+
+
+
+
+
